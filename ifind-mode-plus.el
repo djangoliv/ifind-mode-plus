@@ -97,8 +97,10 @@ It's a string with three %s that get replaced by:
   (concat "-not -name "
           (mapconcat #'(lambda (file)
                          (shell-quote-argument file))
-                         ifind-excluded-files-list
-                         " -not -name ")))
+                     ifind-excluded-files-list
+                     " -not -name ")))
+
+(defvar ifind-current-project "GLOBAL" "")
 
 (defun ifind-switch-project (project)
   "Change project root"
@@ -106,8 +108,12 @@ It's a string with three %s that get replaced by:
    (list
     (completing-read "Project: " ifind-project-list)))
   (loop for (key . value) in ifind-project-list
-        collect (if (equal key project)
-                    (setq ifind-dir value))))
+        collect (progn
+                  (if (equal key project)
+                      (progn
+                        (setq ifind-dir value)
+                        (setq ifind-current-project key)
+                        (message (concat "Switch to Project: " key)))))))
 
 (defun ifind-mode ()
   "Start Ifind minor mode."
@@ -135,7 +141,7 @@ It's a string with three %s that get replaced by:
 (defun ifind-visit-file ()
   "Open the file under the cursor in the *ifind* buffer."
   (interactive)
-  (set-buffer "*ifind*")
+  (set-buffer (concat "*ifind-[" ifind-current-project "]*"))
   (let ((filename (buffer-substring-no-properties
                    (line-beginning-position) (line-end-position))))
     (if (> (length filename) 0)
@@ -154,15 +160,15 @@ It's a string with three %s that get replaced by:
   (setq ifind-mode nil
         overriding-terminal-local-map nil)
   (force-mode-line-update)
-  (kill-buffer "*ifind*"))
+  (kill-buffer (concat "*ifind-[" ifind-current-project "]*")))
 
 (defun ifind-update ()
   "Display the current search string and search for files."
-  (switch-to-buffer "*ifind*")
+  (switch-to-buffer (concat "*ifind-[" ifind-current-project "]*"))
   (message (format ifind-command ifind-dir ifind-excluded-dirs ifind-excluded-files ifind-string))
   (let ((message-log-max nil))
     (if (>= (length ifind-string) ifind-min-length)
         (shell-command
          (format ifind-command ifind-dir ifind-excluded-dirs ifind-excluded-files ifind-string)
-         "*ifind*"))
+         (concat "*ifind-[" ifind-current-project "]*")))
     (message "Find files matching: %s" ifind-string)))
