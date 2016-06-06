@@ -11,7 +11,7 @@
    * exclude directories
    * switch between projects
 
-Example of configuration:
+## Configuration
 
 ``` emacs-lisp
 (setq workspace-dir "~/workspaces/Proj1a ~/workspaces/Proj1b ~/workspaces/Proj2 ~/workspaces/Proj3")
@@ -25,3 +25,14 @@ Example of configuration:
 (global-set-key (kbd "C-x F") 'ifind-mode)
 (global-set-key (kbd "C-x S") 'ifind-switch-project)
 ```
+## Other projects with the same goal
+   * [https://github.com/bbatsov/projectile](projectile)
+   * [https://github.com/technomancy/find-file-in-project](find-file-in-project)
+   * [https://www.emacswiki.org/emacs/ifind-mode.el](ifind-mode)
+   
+## Why ifind-mode-plus
+   * simple to configure
+   * easy to use
+   * no more than necessary
+
+contributions are welcome !
