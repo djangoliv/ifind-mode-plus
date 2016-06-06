@@ -83,8 +83,10 @@ It's a string with three %s that get replaced by:
     map)
   "Keymap for `ifind-mode'.")
 
-(defvar ifind-excluded-dirs)
-(defvar ifind-excluded-files)
+(defvar ifind-excluded-dirs
+  "part of the find command which exclude directories")
+(defvar ifind-excluded-files
+  "part of the find command which exclude files")
 
 ;; Add ifind-mode to minor mode list
 (or (assq 'ifind-mode minor-mode-alist)
