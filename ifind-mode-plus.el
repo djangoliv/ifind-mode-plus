@@ -83,22 +83,20 @@ It's a string with three %s that get replaced by:
     (nconc minor-mode-alist
            (list '(ifind-mode ifind-mode))))
 
-;; except dirs
-(defvar ifind-excluded-dirs
-  (concat "-path "
-          (mapconcat #'(lambda (dir)
-                         (shell-quote-argument (concat "*/" dir)))
-                     ifind-excluded-dirs-list
-                     " -o -path "))
-  "Substring within the find command, specifies which paths to ignore.")
-
-;; except files
-(defvar ifind-excluded-files
-  (concat "-not -name "
-          (mapconcat #'(lambda (file)
-                         (shell-quote-argument file))
-                     ifind-excluded-files-list
-                     " -not -name ")))
+;; except dirs and files
+(defun ifind-excluded-string ()
+  (setq ifind-excluded-dirs
+        (concat "-path "
+                (mapconcat #'(lambda (dir)
+                               (shell-quote-argument (concat "*/" dir)))
+                           ifind-excluded-dirs-list
+                           " -o -path ")))
+  (setq ifind-excluded-files
+        (concat "-not -name "
+                (mapconcat #'(lambda (file)
+                               (shell-quote-argument file))
+                           ifind-excluded-files-list
+                           " -not -name "))))
 
 (defvar ifind-current-project "GLOBAL" "")
 
@@ -164,6 +162,7 @@ It's a string with three %s that get replaced by:
 
 (defun ifind-update ()
   "Display the current search string and search for files."
+  (ifind-excluded-string)
   (switch-to-buffer (concat "*ifind-[" ifind-current-project "]*"))
   (message (format ifind-command ifind-dir ifind-excluded-dirs ifind-excluded-files ifind-string))
   (let ((message-log-max nil))
