@@ -1,4 +1,4 @@
-;;; ifind-mode.el -- A minor mode based on isearch, for interactively finding
+;;; ifind-mode-plus.el --- A minor mode based on isearch, for interactively finding
 ;;; files in the workspace.
 
 ;; (c) 2010 Christian Rovner
@@ -171,3 +171,5 @@ It's a string with three %s that get replaced by:
          (format ifind-command ifind-dir ifind-excluded-dirs ifind-excluded-files ifind-string)
          (concat "*ifind-[" ifind-current-project "]*")))
     (message "Find files matching: %s" ifind-string)))
+
+;;; ifind-mode-plus.el ends here
