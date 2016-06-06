@@ -37,6 +37,9 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'cl))
+
 (defvar ifind-dir workspace-dir
   "Directory where to search files on.")
 
