@@ -1,4 +1,4 @@
-;;; ifind-mode.el -- A minor mode based on isearch, for interactively finding
+;;; ifind-mode-plus.el --- A minor mode based on isearch, for interactively finding
 ;;; files in the workspace.
 
 ;; (c) 2010 Christian Rovner
@@ -34,6 +34,11 @@
 ;; filenames in your workspace will appear, and it will get smaller as you keep
 ;; adding characters. Use the up/down arrows to navigate and press RET to visit
 ;; the file under the cursor.  Any other key will abort the search.
+
+;;; Code:
+
+(eval-when-compile
+  (require 'cl))
 
 (defvar ifind-dir workspace-dir
   "Directory where to search files on.")
@@ -77,6 +82,9 @@ It's a string with three %s that get replaced by:
     (define-key map [t] 'ifind-abort)
     map)
   "Keymap for `ifind-mode'.")
+
+(defvar ifind-excluded-dirs)
+(defvar ifind-excluded-files)
 
 ;; Add ifind-mode to minor mode list
 (or (assq 'ifind-mode minor-mode-alist)
@@ -171,3 +179,5 @@ It's a string with three %s that get replaced by:
          (format ifind-command ifind-dir ifind-excluded-dirs ifind-excluded-files ifind-string)
          (concat "*ifind-[" ifind-current-project "]*")))
     (message "Find files matching: %s" ifind-string)))
+
+;;; ifind-mode-plus.el ends here
