@@ -1,7 +1,8 @@
 ;;; ifind-mode-plus.el --- A minor mode based on isearch, for interactively finding
 ;;; files in the workspace.
 
-;; (c) 2010 Christian Rovner
+;; (c) 2016 Djangoliv'
+;; from Christian Rovner ifind-mode
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as

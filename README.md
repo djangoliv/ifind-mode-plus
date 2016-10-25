@@ -29,10 +29,11 @@
    * [https://github.com/bbatsov/projectile](projectile)
    * [https://github.com/technomancy/find-file-in-project](find-file-in-project)
    * [https://www.emacswiki.org/emacs/ifind-mode.el](ifind-mode)
-   
+
 ## Why ifind-mode-plus
    * simple to configure
    * easy to use
    * no more than necessary
+   * many project you want
 
 contributions are welcome !
